@@ -1,4 +1,4 @@
-import { format, isSunday } from "date-fns";
+import { format, isSunday, addDays } from "date-fns";
 import { niedzieleHandlowe } from "../data";
 import React from "react";
 
@@ -10,7 +10,7 @@ export function checkToday() {
   if (isSunday(today)) {
     const isTradingSunday = niedzieleHandlowe.includes(formattedToday);
     return (
-      <h2 className="text-3xl">
+      <h2 className="text-5xl text-center font-medium">
         Dziś jest niedziela{" "}
         {isTradingSunday ? (
           <span className="text-green-500 font-bold">handlowa</span>
@@ -20,6 +20,34 @@ export function checkToday() {
       </h2>
     );
   } else {
-    return <h2 className="text-3xl">Dzisiaj jest {weekDay}</h2>;
+    const nextSunday = getNextSunday();
+    const isTradingSunday = niedzieleHandlowe.includes(nextSunday);
+
+    return (
+      <div className="flex flex-col gap-4">
+        <h2 className="text-5xl text-center font-semibold">
+          Dzisiaj jest {weekDay}
+        </h2>
+        <h3 className="text-2xl text-center">
+          Następna niedziela będzie niedzielą{" "}
+          {isTradingSunday ? (
+            <span className="text-green-500 font-bold">handlową</span>
+          ) : (
+            <span className="text-red-500 font-bold">niehandlową</span>
+          )}
+        </h3>
+      </div>
+    );
   }
 }
+
+function getNextSunday() {
+  const today = new Date();
+  const dayOfWeek = today.getDay(); // Sunday - 0, Monday - 1, ..., Saturday - 6
+  const daysUntilNextSunday = dayOfWeek === 0 ? 7 : 7 - dayOfWeek;
+
+  const nextSunday = addDays(today, daysUntilNextSunday);
+  return format(nextSunday, "yyyy-MM-dd");
+}
+
+console.log(getNextSunday());
