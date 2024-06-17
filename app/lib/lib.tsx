@@ -10,7 +10,7 @@ export function checkToday() {
   if (isSunday(today)) {
     const isTradingSunday = niedzieleHandlowe.includes(formattedToday);
     return (
-      <h2 className="text-5xl text-center font-medium">
+      <h2 className="text-2xl md:text-5xl text-center font-medium">
         Dziś jest niedziela{" "}
         {isTradingSunday ? (
           <span className="text-green-500 font-bold">handlowa</span>
@@ -25,10 +25,10 @@ export function checkToday() {
 
     return (
       <div className="flex flex-col gap-4">
-        <h2 className="text-5xl text-center font-semibold">
+        <h2 className="text-3xl md:text-5xl text-center font-semibold">
           Dzisiaj jest {weekDay}
         </h2>
-        <h3 className="text-2xl text-center">
+        <h3 className="text-lg md:text-3xl text-center">
           Następna niedziela będzie niedzielą{" "}
           {isTradingSunday ? (
             <span className="text-green-500 font-bold">handlową</span>
